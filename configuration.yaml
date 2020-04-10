@@ -1,0 +1,43 @@
+# Configure a default setup of Home Assistant (frontend, api, etc)
+default_config:
+
+# Uncomment this if you are using SSL/TLS, running in Docker container, etc.
+http:
+  base_url: homeassistant.local:8123
+
+# Text to speech
+tts:
+  - platform: google_translate
+
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+
+mqtt:
+  broker: tailor.cloudmqtt.com
+  port: 12366
+  username: ndqgzjbm
+  password: iV4zEbv5zS9-
+  
+cover:
+  - platform: mqtt
+    name: "Motorized Blinds"
+    command_topic: "smartblinds/blindsCommand"
+    set_position_topic: "smartblinds/positionCommand"
+    position_topic: "smartblinds/positionState"
+    state_topic: "smartblinds/positionState"
+    retain: true
+    payload_open: "OPEN"
+    payload_close: "CLOSE"
+    payload_stop: "STOP"
+    position_open: 0
+    position_closed: 12
+    
+sensor:
+  - platform: template
+    sensors:
+      outdoor_temp:
+        friendly_name: "Outside Temperature"
+        unit_of_measurement: 'degrees'
+        value_template: "{{states.weather.home.attributes.temperature}}"

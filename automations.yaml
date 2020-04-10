@@ -1,0 +1,52 @@
+- id: '1586497828781'
+  alias: Close blinds when sun sets
+  description: ''
+  trigger:
+  - event: sunset
+    platform: sun
+  condition: []
+  action:
+  - data:
+      payload: CLOSE
+      retain: true
+      topic: smartblinds/blindsCommand
+    service: mqtt.publish
+- id: '1586500494355'
+  alias: Blinds closed when sunny and high temp
+  description: Keep heat out
+  trigger:
+  - above: '79.9'
+    entity_id: sensor.outdoor_temp
+    for: 0:30:00
+    platform: numeric_state
+  condition:
+  - after: sunrise
+    before: sunset
+    condition: sun
+  - condition: state
+    entity_id: weather.home
+    state: sunny
+  action:
+  - data:
+      payload: CLOSE
+      retain: true
+      topic: smartblinds/blindsCommand
+    service: mqtt.publish
+- id: '1586500684873'
+  alias: Blinds closed when cold
+  description: Insulate heat
+  trigger:
+  - below: '30.0'
+    entity_id: sensor.outdoor_temp
+    for: 0:30:00
+    platform: numeric_state
+  condition:
+  - after: sunrise
+    before: sunset
+    condition: sun
+  action:
+  - data:
+      payload: CLOSE
+      retain: true
+      topic: smartblinds/blindsCommand
+    service: mqtt.publish
