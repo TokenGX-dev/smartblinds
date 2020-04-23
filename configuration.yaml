@@ -1,7 +1,7 @@
 # Configure a default setup of Home Assistant (frontend, api, etc)
 default_config:
 
-# Uncomment this if you are using SSL/TLS, running in Docker container, etc.
+# Uncomment this if you are using SSL/TLS, running in Docker container, running on Raspberry Pi, etc.
 http:
   base_url: homeassistant.local:8123
 
@@ -15,14 +15,14 @@ script: !include scripts.yaml
 scene: !include scenes.yaml
 
 mqtt:
-  broker: tailor.cloudmqtt.com
-  port: 12366
-  username: ndqgzjbm
-  password: iV4zEbv5zS9-
+  broker: MQTT_SERVER_ADDRESS
+  port: MQTT_SERVER_PORT
+  username: MQTT_DEFAULT_USER
+  password: MQTT_DEFAULT_PASS
   
 cover:
   - platform: mqtt
-    name: "Motorized Blinds"
+    name: "smart blinds"
     command_topic: "smartblinds/blindsCommand"
     set_position_topic: "smartblinds/positionCommand"
     position_topic: "smartblinds/positionState"
