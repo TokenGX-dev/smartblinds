@@ -3,6 +3,8 @@ Smart blinds project for CPSC 498, Spring 2020
 
 Set up using NodeMCU, Raspberry Pi 3B, HassIO, CloudMQTT.
 
+# Check the Wiki for a complete guide on this project.
+
 # Helpful Info
 
 Upload the blinds.ino file to the NodeMCU. You may have to install a couple plugins to the Arduino IDE to get the code compiled.
